@@ -1,0 +1,31 @@
+
+[target.x86_64-pc-windows-gnu]
+linker = "/usr/bin/x86_64-w64-mingw32-gcc"
+rustflags = [
+    "-C", "panic=abort",
+    "-C", "link-arg=-static",
+    "-C", "target-feature=+crt-static",
+    "-Lall=/usr/x86_64-w64-mingw32/include",
+    "-Lall=/usr/x86_64-w64-mingw32/lib",
+]
+
+[target.i686-pc-windows-gnu]
+linker = "/usr/bin/i686-w64-mingw32-gcc"
+rustflags = [
+    "-C", "panic=abort",
+    "-C", "link-arg=-static",
+    "-C", "target-feature=+crt-static",
+    "-L/usr/i686-w64-mingw32/include",
+    "-L/usr/i686-w64-mingw32/lib",
+]
+
+
+[target.x86_64-unknown-linux-gnu]
+rustflags = [
+    "-C", "panic=abort",
+    "-C", "link-arg=-static",
+    "-C", "target-feature=+crt-static",
+    #"-L/usr/include",
+    "-L/usr/include/linux",
+    #"-L/usr/lib",
+]

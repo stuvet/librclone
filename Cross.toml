@@ -1,0 +1,16 @@
+[build]
+pre-build = ['''
+                export SHA=c9c08f783325c4cf840a94333159cc937f05f75d36a8b307951d5bd959cf2ab8 && 
+                export GO_VERSION=1.19.4 && 
+                export ARCH=amd64 && 
+                find /etc/apt -type f -exec sed -i "s/xenial/focal/g" {} \; &&
+                apt update &&
+                apt-get install --assume-yes --no-install-recommends llvm-dev libclang-dev clang &&
+                echo "[librclone-sys] Installing golang in the Cross docker image..." &&
+                curl https://dl.google.com/go/go$GO_VERSION.linux-$ARCH.tar.gz > /tmp/go.tar.gz && 
+                echo "[librclone-sys] Validating Checksum..." &&
+                { echo "${SHA}  /tmp/go.tar.gz" | sha256sum --check ; } && 
+                tar xf /tmp/go.tar.gz -C /usr/local && 
+                mkdir ~/.cache &&
+                echo "[librclone-sys] ...Done"
+            ''']
